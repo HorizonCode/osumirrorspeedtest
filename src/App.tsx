@@ -8,7 +8,7 @@ function App() {
     "osu.direct": "https://osu.direct/api/search?limit=50",
     "catboy.best": "https://catboy.best/api/search?amount=50",
     "chimu.moe": "https://api.chimu.moe/cheesegull/search?amount=50",
-    nerinyan: "https://api.nerinyan.moe/search?ps=50",
+    "nerinyan.moe": "https://api.nerinyan.moe/search?ps=50",
   };
   const [running, setRunning] = useState(false);
 
