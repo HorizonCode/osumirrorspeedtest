@@ -1,0 +1,16 @@
+.server-card {
+  display: flex;
+  flex-direction: row;
+  background: #323232;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  .server-info {
+    display: flex;
+    flex-direction: column;
+    color: #afafaf;
+    .server-info-title {
+      font-size: 1.1rem;
+      color: #fff;
+    }
+  }
+}
