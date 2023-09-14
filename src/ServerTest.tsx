@@ -43,7 +43,7 @@ function ServerTest(props: Record<string, string>) {
   return (
     <>
       <div className="server-card">
-        <img width="64" height="64" src={imgSrc} onError={() =>setImgSrc(noLogo)}></img>
+        <img className="server-icon" width="64" height="64" src={imgSrc} onError={() =>setImgSrc(noLogo)}></img>
         <div className="server-info">
           <div className="server-info-title">Server</div>
           <a href={"https://" + props["serverName"]} target="_blank">{props["serverName"]}</a>

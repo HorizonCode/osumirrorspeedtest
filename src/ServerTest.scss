@@ -21,6 +21,10 @@
   animation-name: slideSide;
   animation-duration: 1s;
   animation-fill-mode: forwards;
+  .server-icon {
+    user-select: none;
+    pointer-events: none;
+  }
   .server-info {
     display: flex;
     flex-direction: column;
