@@ -25,7 +25,15 @@ function ServerTest(props: Record<string, string | number>) {
     for (let sample = 0; sample < maxRequests; sample++) {
       try {
         const latencyStart = performance.now();
-        const request = await fetch(props["apiUrl"] as string);
+        const request = await fetch(props["apiUrl"] as string, {
+          keepalive: true,
+          headers: {
+            "User-Agent": window.navigator.userAgent
+          },
+          method: "GET",
+          cache: "no-cache",
+          mode: "cors"
+        });
         if (!request.ok) throw new Error();
         const totalLatency = performance.now() - latencyStart;
         samples.push(totalLatency);
