@@ -4,7 +4,7 @@ import noLogo from './assets/nologo.webp';
 import { calculateAverageWithMinMax } from "./mathUtil";
 import prettytime from 'pretty-time';
 
-function ServerTest(props: Record<string, string>) {
+function ServerTest(props: Record<string, string | number>) {
   const [imgSrc, setImgSrc] = useState(props["logo"]);
 
   const [averageSpeed, setAverageSpeed] = useState("calculating...");
@@ -12,14 +12,17 @@ function ServerTest(props: Record<string, string>) {
   const [slowestRequest, setSlowestRequest] = useState("calculating...");
   const [failedRequests, setFailedRequests] = useState("calculating...");
 
+  let maxRequests = props["requestAmount"] as number;
+
   const calculateLatency = async () => {
     const samples: number[] = [];
-    for(let sample = 0; sample < 5; sample++){
+    for(let sample = 0; sample < maxRequests; sample++){
       const latencyStart = performance.now();
-      const request = await fetch(props["apiUrl"]);
+      const request = await fetch(props["apiUrl"] as string);
       if(!request.ok) continue;
       const totalLatency = performance.now() - latencyStart;
       samples.push(totalLatency);
+      setFailedRequests("?/" + samples.length);
       await new Promise(res => setTimeout(res, 500));
     }
 
@@ -31,8 +34,8 @@ function ServerTest(props: Record<string, string>) {
     setSlowestRequest(highest);
     setAverageSpeed(average);
 
-    const droppedRequests = Math.abs(5 - samples.length);
-    setFailedRequests(droppedRequests + "/5");
+    const droppedRequests = Math.abs(maxRequests - samples.length);
+    setFailedRequests(droppedRequests + "/" + maxRequests);
 
   }
 
@@ -43,7 +46,7 @@ function ServerTest(props: Record<string, string>) {
   return (
     <>
       <div className="server-card">
-        <div className="server-icon"><img width="64" height="64" src={imgSrc} onError={() =>setImgSrc(noLogo)}></img></div>
+        <div className="server-icon"><img width="64" height="64" src={imgSrc as string} onError={() =>setImgSrc(noLogo)}></img></div>
         <div className="server-info">
           <div className="server-info-title">Server</div>
           <a href={"https://" + props["serverName"]} target="_blank">{props["serverName"]}</a>

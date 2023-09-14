@@ -14,6 +14,32 @@
   margin-bottom: 2rem;
 }
 
+.inputgroup {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  p {
+    margin: auto;
+  }
+  input, button {
+    position: relative;
+    width: fit-content;
+    padding: 1rem;
+    margin: auto;
+    border: 1px solid transparent;
+    transition: border-color 0.25s;
+    &:active, &:hover{
+      outline: none;
+      border-color: #646cff;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
 .test-list {
   display: flex;
   flex-direction: column;
