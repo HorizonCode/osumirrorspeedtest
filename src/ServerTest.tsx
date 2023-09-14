@@ -20,7 +20,6 @@ function ServerTest(props: Record<string, string | number>) {
   const calculateLatency = async () => {
     if (calculating) return;
     calculating = true;
-    console.log("Start calculating " + props["serverName"]);
     const samples: number[] = [];
     const startTime = performance.now();
     for (let sample = 0; sample < maxRequests; sample++) {
