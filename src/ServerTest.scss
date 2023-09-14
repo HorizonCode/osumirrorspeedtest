@@ -21,6 +21,8 @@
   animation-name: slideSide;
   animation-duration: 1s;
   animation-fill-mode: forwards;
+  flex-wrap: wrap;
+  row-gap: 20px;
   .server-icon {
     user-select: none;
     pointer-events: none;
