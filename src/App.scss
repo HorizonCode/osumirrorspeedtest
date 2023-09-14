@@ -5,6 +5,15 @@
   text-align: center;
 }
 
+.title {
+  margin-bottom: 0;
+}
+
+.subtitle {
+  margin-top: 2px;
+  margin-bottom: 2rem;
+}
+
 .test-list {
   display: flex;
   flex-direction: column;
