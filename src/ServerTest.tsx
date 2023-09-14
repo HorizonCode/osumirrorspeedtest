@@ -31,7 +31,6 @@ function ServerTest(props: Record<string, string>) {
     setSlowestRequest(highest);
     setAverageSpeed(average);
 
-    console.log(samples.length);
     const droppedRequests = Math.abs(5 - samples.length);
     setFailedRequests(droppedRequests + "/5");
 
