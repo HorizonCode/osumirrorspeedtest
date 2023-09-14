@@ -1,9 +1,10 @@
 @keyframes slideSide {
-  0%{
+  0% {
     opacity: 0;
     translate: -15px 0;
   }
-  100%{
+
+  100% {
     opacity: 1;
     translate: 0 0;
   }
@@ -23,10 +24,12 @@
   animation-fill-mode: forwards;
   flex-wrap: wrap;
   row-gap: 20px;
+
   .server-icon {
     user-select: none;
     pointer-events: none;
   }
+
   .server-info {
     display: flex;
     flex-direction: column;
@@ -35,9 +38,24 @@
     color: #afafaf;
     font-size: .85rem;
     padding: 0 1.5rem;
+
     .server-info-title {
       font-size: 1rem;
       color: #fff;
+    }
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .server-card {
+    .server-icon {
+      width: 100%;
+    }
+
+    .server-info {
+      &:nth-child(2) {
+        width: 100%;
+      }
     }
   }
 }
