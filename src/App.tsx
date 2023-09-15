@@ -59,6 +59,7 @@ function App() {
           {Object.values(
             dynMirrors.map((mirror) => (
               <ServerTest
+                key={mirror.name}
                 serverObject={mirror}
                 requestAmount={requests}
                 onDone={processNext}
