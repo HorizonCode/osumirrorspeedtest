@@ -79,13 +79,13 @@ function ServerTest(props: {
       setRequestsPerSecond(rps.toFixed(2));
       await new Promise((res) => setTimeout(res, 500));
     }
-    const elapsedTime = (performance.now() - startTime);
+    const elapsedTime = performance.now() - startTime;
     const droppedRequests = Math.abs(maxRequests - samples.length);
     setFailedRequests(droppedRequests + "/" + maxRequests);
     setAproxTime(
       `took ${prettytime([
         Math.trunc(elapsedTime / 1000),
-        Math.trunc(elapsedTime * 1000000),
+        Math.trunc(elapsedTime * 10000), //why is this double the time?? should be 1000000???
       ])}`
     );
     props.onDone();
