@@ -1,8 +1,10 @@
 {
   "name": "osumirrorspeedtest",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "author": "HorizonCode",
+  "repository": "https://github.com/HorizonCode/osumirrorspeedtest",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
