@@ -71,7 +71,7 @@ function ServerTest(props: {
         // funny moment
       }
       const droppedRequests = Math.abs(sample + 1 - samples.length);
-      setFailedRequests(droppedRequests + "/" + sample);
+      setFailedRequests(droppedRequests + "/" + (sample + 1));
 
       const endTime = performance.now();
       const elapsedSeconds = (endTime - startTime) / 1000;
@@ -95,7 +95,11 @@ function ServerTest(props: {
 
   return (
     <>
-      <div className={"server-card animated slideSide wait-" + props.serverObject.id}>
+      <div
+        className={
+          "server-card animated slideSide wait-" + props.serverObject.id
+        }
+      >
         <div className="server-icon">
           <img
             width="64"
