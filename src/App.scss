@@ -7,11 +7,13 @@
 
 .title {
   margin-bottom: 0;
+  font-weight: 600;
 }
 
 .subtitle {
   margin-top: 2px;
   margin-bottom: 2rem;
+  font-weight: 300;
 }
 
 .inputgroup {
@@ -23,7 +25,8 @@
   p {
     margin: auto;
   }
-  input, button {
+  input,
+  button {
     position: relative;
     width: fit-content;
     padding: 1rem;
@@ -31,7 +34,10 @@
     border-radius: 8px;
     border: 1px solid transparent;
     transition: border-color 0.25s;
-    &:active, &:hover{
+    font-family: "Urbanist", sans-serif;
+    text-align: center;
+    &:active,
+    &:hover {
       outline: none;
       border-color: #646cff;
     }

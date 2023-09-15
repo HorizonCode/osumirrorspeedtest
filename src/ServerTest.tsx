@@ -95,7 +95,7 @@ function ServerTest(props: {
 
   return (
     <>
-      <div className="server-card">
+      <div className={"server-card animated slideSide wait-" + props.serverObject.id}>
         <div className="server-icon">
           <img
             width="64"

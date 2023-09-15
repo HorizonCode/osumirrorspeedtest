@@ -10,6 +10,20 @@
   }
 }
 
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  &.slideSide {
+    animation-name: slideSide;
+    opacity: 0;
+  }
+  @for $i from 0 to 50 {
+    &.wait-#{$i} {
+      animation-delay: $i * 0.1s;
+    }
+  }
+}
+
 .server-card {
   display: flex;
   flex-direction: row;
@@ -20,11 +34,11 @@
   border-radius: 0.5rem;
   justify-items: center;
   animation-name: slideSide;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
+
   flex-wrap: wrap;
   row-gap: 20px;
-  transition: scale 0.35s cubic-bezier(0.075, 0.82, 0.165, 1), box-shadow 0.35s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: scale 0.35s cubic-bezier(0.075, 0.82, 0.165, 1),
+    box-shadow 0.35s cubic-bezier(0.075, 0.82, 0.165, 1);
   box-shadow: 0 0px 30px 1px rgba(0, 0, 0, 0);
 
   &:hover {
@@ -45,8 +59,10 @@
     color: #afafaf;
     font-size: 0.85rem;
     padding: 0 1.5rem;
+    font-weight: 400;
 
     .server-info-title {
+      font-weight: 500;
       font-size: 1rem;
       color: #fff;
     }

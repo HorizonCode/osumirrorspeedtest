@@ -1,30 +1,42 @@
 import { useState } from "react";
-import "./App.scss";
 import ServerTest from "./ServerTest";
-import "@fontsource/urbanist";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import ServerMirror from "./ServerMirror";
 
+import "./App.scss";
+import "@sweetalert2/theme-dark";
+import "@fontsource/urbanist/600.css";
+import "@fontsource/urbanist/500.css";
+import "@fontsource/urbanist/400.css";
+import "@fontsource/urbanist/300.css";
+
 function App() {
+  const alert = withReactContent(Swal);
   const mirrors = [
     new ServerMirror({
+      id: 0,
       name: "osu.direct",
       logo: "https://osu.direct/assets/img/logo.png",
       apiUrl: "https://osu.direct/api/search?limit=50",
       processing: false,
     }),
     new ServerMirror({
+      id: 1,
       name: "catboy.best",
       logo: "",
       apiUrl: "https://catboy.best/api/search?amount=50",
       processing: false,
     }),
     new ServerMirror({
+      id: 2,
       name: "chimu.moe",
       logo: "https://chimu.moe/static/images/logo-512x512.png",
       apiUrl: "https://api.chimu.moe/cheesegull/search?amount=50",
       processing: false,
     }),
     new ServerMirror({
+      id: 3,
       name: "nerinyan.moe",
       logo: "",
       apiUrl: "https://api.nerinyan.moe/search?ps=50",
@@ -46,6 +58,15 @@ function App() {
   };
 
   const startTest = async () => {
+    if (requests < 3 || requests > 1000) {
+      alert.fire({
+        title: "Oops...",
+        text: "requests must be >= 3 and <= 1000",
+        icon: "error",
+        focusConfirm: false,
+      });
+      return;
+    }
     setRunning(true);
     processNext();
   };
@@ -74,6 +95,8 @@ function App() {
             type="number"
             value={requests}
             onChange={(e) => setRequests(parseInt(e.target.value))}
+            max="1000"
+            min="3"
           ></input>
           <button onClick={startTest}>Start Test</button>
         </div>
