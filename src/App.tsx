@@ -58,7 +58,7 @@ function App() {
   };
 
   const startTest = async () => {
-    if (requests < 3 || requests > 1000) {
+    if (requests < 3 || requests > 1000 || isNaN(requests)) {
       alert.fire({
         title: "Oops...",
         text: "requests must be >= 3 and <= 1000",
