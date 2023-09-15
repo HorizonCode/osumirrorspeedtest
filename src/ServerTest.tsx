@@ -3,9 +3,14 @@ import "./ServerTest.scss";
 import noLogo from "./assets/nologo.webp";
 import { calculateAverageWithMinMax } from "./mathUtil";
 import prettytime from "pretty-time";
+import ServerMirror from "./ServerMirror";
 
-function ServerTest(props: Record<string, string | number>) {
-  const [imgSrc, setImgSrc] = useState(props["logo"]);
+function ServerTest(props: {
+  serverObject: ServerMirror;
+  requestAmount: number;
+  onDone: () => void;
+}) {
+  const [imgSrc, setImgSrc] = useState(props.serverObject.logo);
 
   let calculating = false;
 
@@ -15,7 +20,7 @@ function ServerTest(props: Record<string, string | number>) {
   const [failedRequests, setFailedRequests] = useState("calculating...");
   const [requestsPerSecond, setRequestsPerSecond] = useState("calculating...");
 
-  let maxRequests = props["requestAmount"] as number;
+  const maxRequests = props.requestAmount;
 
   const calculateLatency = async () => {
     if (calculating) return;
@@ -25,14 +30,14 @@ function ServerTest(props: Record<string, string | number>) {
     for (let sample = 0; sample < maxRequests; sample++) {
       try {
         const latencyStart = performance.now();
-        const request = await fetch(props["apiUrl"] as string, {
+        const request = await fetch(props.serverObject.apiUrl, {
           keepalive: true,
           headers: {
-            "User-Agent": window.navigator.userAgent
+            "User-Agent": window.navigator.userAgent,
           },
           method: "GET",
           cache: "no-cache",
-          mode: "cors"
+          mode: "cors",
         });
         if (!request.ok) throw new Error();
         const totalLatency = performance.now() - latencyStart;
@@ -53,7 +58,9 @@ function ServerTest(props: Record<string, string | number>) {
         setFastestRequest(lowest);
         setSlowestRequest(highest);
         setAverageSpeed(average);
-      } catch (err) {}
+      } catch (err) {
+        // funny moment
+      }
       const droppedRequests = Math.abs(sample + 1 - samples.length);
       setFailedRequests(droppedRequests + "/" + samples.length);
 
@@ -66,11 +73,15 @@ function ServerTest(props: Record<string, string | number>) {
 
     const droppedRequests = Math.abs(maxRequests - samples.length);
     setFailedRequests(droppedRequests + "/" + maxRequests);
+    props.onDone();
   };
 
   useEffect(() => {
-    calculateLatency();
-  }, []);
+    if (props.serverObject.processing) {
+      calculateLatency();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.serverObject.processing]);
 
   return (
     <>
@@ -85,8 +96,8 @@ function ServerTest(props: Record<string, string | number>) {
         </div>
         <div className="server-info">
           <div className="server-info-title">Server</div>
-          <a href={"https://" + props["serverName"]} target="_blank">
-            {props["serverName"]}
+          <a href={"https://" + props.serverObject.name} target="_blank">
+            {props.serverObject.name}
           </a>
         </div>
         <div className="server-info">
