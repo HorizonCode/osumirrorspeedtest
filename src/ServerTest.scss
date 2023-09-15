@@ -24,6 +24,13 @@
   animation-fill-mode: forwards;
   flex-wrap: wrap;
   row-gap: 20px;
+  transition: scale 0.35s cubic-bezier(0.075, 0.82, 0.165, 1), box-shadow 0.35s cubic-bezier(0.075, 0.82, 0.165, 1);
+  box-shadow: 0 0px 30px 1px rgba(0, 0, 0, 0);
+
+  &:hover {
+    scale: 1.01;
+    box-shadow: 0 2px 50px 1px rgba(0, 0, 0, 0.411);
+  }
 
   .server-icon {
     user-select: none;
@@ -36,7 +43,7 @@
     justify-items: center;
     justify-content: center;
     color: #afafaf;
-    font-size: .85rem;
+    font-size: 0.85rem;
     padding: 0 1.5rem;
 
     .server-info-title {
