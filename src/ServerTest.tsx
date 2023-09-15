@@ -14,11 +14,11 @@ function ServerTest(props: {
 
   let calculating = false;
 
-  const [averageSpeed, setAverageSpeed] = useState("calculating...");
-  const [fastestRequest, setFastestRequest] = useState("calculating...");
-  const [slowestRequest, setSlowestRequest] = useState("calculating...");
-  const [failedRequests, setFailedRequests] = useState("calculating...");
-  const [requestsPerSecond, setRequestsPerSecond] = useState("calculating...");
+  const [averageSpeed, setAverageSpeed] = useState("waiting...");
+  const [fastestRequest, setFastestRequest] = useState("waiting...");
+  const [slowestRequest, setSlowestRequest] = useState("waiting...");
+  const [failedRequests, setFailedRequests] = useState("waiting...");
+  const [requestsPerSecond, setRequestsPerSecond] = useState("waiting...");
 
   const maxRequests = props.requestAmount;
 
