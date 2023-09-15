@@ -71,7 +71,7 @@ function ServerTest(props: {
         // funny moment
       }
       const droppedRequests = Math.abs(sample + 1 - samples.length);
-      setFailedRequests(droppedRequests + "/" + samples.length);
+      setFailedRequests(droppedRequests + "/" + sample);
 
       const endTime = performance.now();
       const elapsedSeconds = (endTime - startTime) / 1000;
