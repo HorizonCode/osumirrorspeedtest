@@ -79,10 +79,15 @@ function ServerTest(props: {
       setRequestsPerSecond(rps.toFixed(2));
       await new Promise((res) => setTimeout(res, 500));
     }
-
+    const elapsedTime = (performance.now() - startTime) / 1000;
     const droppedRequests = Math.abs(maxRequests - samples.length);
     setFailedRequests(droppedRequests + "/" + maxRequests);
-    setAproxTime("done!");
+    setAproxTime(
+      `took ${prettytime([
+        Math.trunc(elapsedTime / 1000),
+        Math.trunc(elapsedTime * 1000000),
+      ])}`
+    );
     props.onDone();
   };
 
