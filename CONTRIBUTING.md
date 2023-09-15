@@ -1,5 +1,3 @@
-Certainly! Below are sample contributing guidelines that you can use for your osu! Mirror Speed-Test project:
-
 # Contributing Guidelines
 
 Thank you for considering contributing to the osu! Mirror Speed-Test project! By contributing, you help improve the tool and make it more useful for the osu! community. Here are some guidelines to follow when contributing:
