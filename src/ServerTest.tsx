@@ -19,6 +19,7 @@ function ServerTest(props: {
   const [slowestRequest, setSlowestRequest] = useState("waiting...");
   const [failedRequests, setFailedRequests] = useState("waiting...");
   const [requestsPerSecond, setRequestsPerSecond] = useState("waiting...");
+  const [aproxTime, setAproxTime] = useState("waiting...");
 
   const maxRequests = props.requestAmount;
 
@@ -58,6 +59,14 @@ function ServerTest(props: {
         setFastestRequest(lowest);
         setSlowestRequest(highest);
         setAverageSpeed(average);
+        const remainingRequests = Math.abs(maxRequests - sample);
+        const remainingTime = remainingRequests * result.average;
+        setAproxTime(
+          prettytime([
+            Math.trunc(remainingTime / 1000),
+            Math.trunc(remainingTime * 1000000),
+          ])
+        );
       } catch (err) {
         // funny moment
       }
@@ -73,6 +82,7 @@ function ServerTest(props: {
 
     const droppedRequests = Math.abs(maxRequests - samples.length);
     setFailedRequests(droppedRequests + "/" + maxRequests);
+    setAproxTime("done!");
     props.onDone();
   };
 
@@ -119,6 +129,10 @@ function ServerTest(props: {
         <div className="server-info">
           <div className="server-info-title">Requests per second</div>
           {requestsPerSecond}
+        </div>
+        <div className="server-info">
+          <div className="server-info-title">Aprox. time</div>
+          {aproxTime}
         </div>
       </div>
     </>
