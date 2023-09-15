@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@fontsource/urbanist": "^5.0.12",
-    "@sweetalert2/theme-borderless": "^5.0.15",
     "@sweetalert2/theme-dark": "^5.0.15",
     "@types/pretty-time": "^1.1.2",
     "pretty-time": "^1.1.0",
