@@ -89,17 +89,19 @@ function App() {
           )}
         </div>
       ) : (
-        <div className="inputgroup">
+        <>
           <p>Input the number of requests you want to make</p>
-          <input
-            type="number"
-            value={requests}
-            onChange={(e) => setRequests(parseInt(e.target.value))}
-            max="1000"
-            min="3"
-          ></input>
-          <button onClick={startTest}>Start Test</button>
-        </div>
+          <div className="inputgroup">
+            <input
+              type="number"
+              value={requests}
+              onChange={(e) => setRequests(parseInt(e.target.value))}
+              max="1000"
+              min="3"
+            ></input>
+            <button onClick={startTest}>Start Test</button>
+          </div>
+        </>
       )}
     </>
   );
