@@ -40,7 +40,6 @@ function App() {
 
   const processNext = () => {
     if (mirrorIndex >= Object.keys(mirrors).length) return;
-    mirrors[mirrorIndex].name = "yeet";
     mirrors[mirrorIndex].processing = true;
     setDynMirrors(mirrors);
     setMirrorIndex(mirrorIndex + 1);
