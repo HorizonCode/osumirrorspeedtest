@@ -8,6 +8,7 @@ import ServerMirror from "./ServerMirror";
 function ServerTest(props: {
   serverObject: ServerMirror;
   requestAmount: number;
+  type: string;
   onDone: () => void;
 }) {
   const [imgSrc, setImgSrc] = useState(props.serverObject.logo);
@@ -31,15 +32,20 @@ function ServerTest(props: {
     for (let sample = 0; sample < maxRequests; sample++) {
       try {
         const latencyStart = performance.now();
-        const request = await fetch(props.serverObject.apiUrl, {
-          keepalive: true,
-          headers: {
-            "User-Agent": window.navigator.userAgent,
-          },
-          method: "GET",
-          cache: "no-cache",
-          mode: "cors",
-        });
+        const request = await fetch(
+          props.type == "search"
+            ? props.serverObject.apiSearchUrl
+            : props.serverObject.apiSetUrl,
+          {
+            keepalive: true,
+            headers: {
+              "User-Agent": window.navigator.userAgent,
+            },
+            method: "GET",
+            cache: "no-cache",
+            mode: "cors",
+          }
+        );
         if (!request.ok) throw new Error();
         const totalLatency = performance.now() - latencyStart;
         samples.push(totalLatency);

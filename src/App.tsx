@@ -18,28 +18,32 @@ function App() {
       id: 0,
       name: "osu.direct",
       logo: "https://osu.direct/assets/img/logo.png",
-      apiUrl: "https://osu.direct/api/search?limit=50",
+      apiSearchUrl: "https://osu.direct/api/search?limit=50",
+      apiSetUrl: "https://osu.direct/api/s/1337",
       processing: false,
     }),
     new ServerMirror({
       id: 1,
       name: "catboy.best",
       logo: "",
-      apiUrl: "https://catboy.best/api/search?amount=50",
+      apiSearchUrl: "https://catboy.best/api/search?amount=50",
+      apiSetUrl: "https://catboy.best/api/s/1337",
       processing: false,
     }),
     new ServerMirror({
       id: 2,
       name: "chimu.moe",
       logo: "https://chimu.moe/static/images/logo-512x512.png",
-      apiUrl: "https://api.chimu.moe/cheesegull/search?amount=50",
+      apiSearchUrl: "https://api.chimu.moe/cheesegull/search?amount=50",
+      apiSetUrl: "https://api.chimu.moe/api/s/1337",
       processing: false,
     }),
     new ServerMirror({
       id: 3,
       name: "nerinyan.moe",
       logo: "",
-      apiUrl: "https://api.nerinyan.moe/search?ps=50",
+      apiSearchUrl: "https://api.nerinyan.moe/search?ps=50",
+      apiSetUrl: "https://api.nerinyan.moe/search?q=1337&option=s",
       processing: false,
     }),
   ];
@@ -49,6 +53,7 @@ function App() {
   const [mirrorIndex, setMirrorIndex] = useState(0);
   const [running, setRunning] = useState(false);
   const [requests, setRequests] = useState(10);
+  const [type, setType] = useState("search");
 
   const processNext = () => {
     if (mirrorIndex >= Object.keys(mirrors).length) return;
@@ -83,6 +88,7 @@ function App() {
                 key={mirror.name}
                 serverObject={mirror}
                 requestAmount={requests}
+                type={type}
                 onDone={processNext}
               />
             ))
@@ -92,6 +98,11 @@ function App() {
         <>
           <p>Input the number of requests you want to make</p>
           <div className="inputgroup">
+            <select onChange={(e) => setType(e.target.value)}>
+              <option value="search">Search</option>
+              <option value="sets">BeatmapSets</option>
+              {/* TODO: soon TM? <option value="download">Download</option> */}
+            </select>
             <input
               type="number"
               value={requests}
