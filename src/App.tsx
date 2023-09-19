@@ -52,7 +52,7 @@ function App() {
 
   const [mirrorIndex, setMirrorIndex] = useState(0);
   const [running, setRunning] = useState(false);
-  const [requests, setRequests] = useState(10);
+  const [requests, setRequests] = useState(25);
   const [type, setType] = useState("search");
 
   const processNext = () => {
