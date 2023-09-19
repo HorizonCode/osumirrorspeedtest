@@ -99,7 +99,7 @@ function ServerTest(props: {
           <img
             width="64"
             height="64"
-            src={imgSrc as string}
+            src={imgSrc}
             onError={() => setImgSrc(noLogo)}
           ></img>
         </div>
