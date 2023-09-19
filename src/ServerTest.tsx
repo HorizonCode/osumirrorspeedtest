@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import "./ServerTest.scss";
 import noLogo from "./assets/nologo.webp";
 import { calculateAverageWithMinMax } from "./mathUtil";
-import prettytime from "pretty-time";
 import ServerMirror from "./ServerMirror";
+import { prettytime } from "./prettyTime";
 
 function ServerTest(props: {
   serverObject: ServerMirror;
@@ -20,7 +20,7 @@ function ServerTest(props: {
   const [slowestRequest, setSlowestRequest] = useState("waiting...");
   const [failedRequests, setFailedRequests] = useState("waiting...");
   const [requestsPerSecond, setRequestsPerSecond] = useState("waiting...");
-  const [aproxTime, setAproxTime] = useState("waiting...");
+  const [time, setTime] = useState("waiting...");
 
   const maxRequests = props.requestAmount;
 
@@ -28,10 +28,10 @@ function ServerTest(props: {
     if (calculating) return;
     calculating = true;
     const samples: number[] = [];
-    const startTime = performance.now();
+    const startTime = Date.now();
     for (let sample = 0; sample < maxRequests; sample++) {
       try {
-        const latencyStart = performance.now();
+        const latencyStart = Date.now();
         const request = await fetch(
           props.type == "search"
             ? props.serverObject.apiSearchUrl
@@ -47,53 +47,37 @@ function ServerTest(props: {
           }
         );
         if (!request.ok) throw new Error();
-        const totalLatency = performance.now() - latencyStart;
+        const totalLatency = Date.now() - latencyStart;
         samples.push(totalLatency);
         const result = calculateAverageWithMinMax(samples);
-        const average = prettytime([
-          Math.trunc(result.average / 1000),
-          Math.trunc(result.average * 1000000),
-        ]);
-        const highest = prettytime([
-          Math.trunc(result.highest / 1000),
-          Math.trunc(result.highest * 1000000),
-        ]);
-        const lowest = prettytime([
-          Math.trunc(result.lowest / 1000),
-          Math.trunc(result.lowest * 1000000),
-        ]);
+        const average = prettytime(result.average, {
+          short: true,
+        });
+        const highest = prettytime(result.highest, {
+          short: true,
+        });
+        const lowest = prettytime(result.lowest, {
+          short: true,
+        });
         setFastestRequest(lowest);
         setSlowestRequest(highest);
         setAverageSpeed(average);
-        const remainingRequests = Math.abs(maxRequests - sample);
-        const remainingTime = remainingRequests * result.average;
-        setAproxTime(
-          prettytime([
-            Math.trunc(remainingTime / 1000),
-            Math.trunc(remainingTime * 1000000),
-          ])
-        );
       } catch (err) {
         // funny moment
       }
       const droppedRequests = Math.abs(sample + 1 - samples.length);
       setFailedRequests(droppedRequests + "/" + (sample + 1));
 
-      const endTime = performance.now();
+      const endTime = Date.now();
       const elapsedSeconds = (endTime - startTime) / 1000;
       const rps = samples.length / elapsedSeconds;
       setRequestsPerSecond(rps.toFixed(2));
       await new Promise((res) => setTimeout(res, 500));
     }
-    const elapsedTime = performance.now() - startTime;
+    const elapsedTime = Date.now() - startTime;
     const droppedRequests = Math.abs(maxRequests - samples.length);
     setFailedRequests(droppedRequests + "/" + maxRequests);
-    setAproxTime(
-      `took ${prettytime([
-        Math.trunc(elapsedTime / 1000),
-        Math.trunc(elapsedTime * 10000), //why is this double the time?? should be 1000000???
-      ])}`
-    );
+    setTime(`took ${prettytime(elapsedTime)}`);
     props.onDone();
   };
 
@@ -146,8 +130,8 @@ function ServerTest(props: {
           {requestsPerSecond}
         </div>
         <div className="server-info">
-          <div className="server-info-title">Aprox. time</div>
-          {aproxTime}
+          <div className="server-info-title">Time</div>
+          {time}
         </div>
       </div>
     </>
