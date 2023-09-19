@@ -28,10 +28,10 @@ function ServerTest(props: {
     if (calculating) return;
     calculating = true;
     const samples: number[] = [];
-    const startTime = Date.now();
+    const startTime = performance.now();
     for (let sample = 0; sample < maxRequests; sample++) {
       try {
-        const latencyStart = Date.now();
+        const latencyStart = performance.now();
         const request = await fetch(
           props.type == "search"
             ? props.serverObject.apiSearchUrl
@@ -47,7 +47,7 @@ function ServerTest(props: {
           }
         );
         if (!request.ok) throw new Error();
-        const totalLatency = Date.now() - latencyStart;
+        const totalLatency = performance.now() - latencyStart;
         samples.push(totalLatency);
         const result = calculateAverageWithMinMax(samples);
         const average = prettytime(result.average, {
@@ -68,13 +68,13 @@ function ServerTest(props: {
       const droppedRequests = Math.abs(sample + 1 - samples.length);
       setFailedRequests(droppedRequests + "/" + (sample + 1));
 
-      const endTime = Date.now();
+      const endTime = performance.now();
       const elapsedSeconds = (endTime - startTime) / 1000;
       const rps = samples.length / elapsedSeconds;
       setRequestsPerSecond(rps.toFixed(2));
       await new Promise((res) => setTimeout(res, 500));
     }
-    const elapsedTime = Date.now() - startTime;
+    const elapsedTime = performance.now() - startTime;
     const droppedRequests = Math.abs(maxRequests - samples.length);
     setFailedRequests(droppedRequests + "/" + maxRequests);
     setTime(`took ${prettytime(elapsedTime)}`);
