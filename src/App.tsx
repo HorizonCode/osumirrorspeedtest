@@ -18,8 +18,8 @@ function App() {
       id: 0,
       name: "osu.direct",
       logo: "https://osu.direct/assets/img/logo.png",
-      apiSearchUrl: "https://osu.direct/api/search?limit=50",
-      apiSetUrl: "https://osu.direct/api/s/1337",
+      apiSearchUrl: "https://api.osu.direct/search?limit=50",
+      apiSetUrl: "https://api.osu.direct/s/1337",
       processing: false,
     }),
     new ServerMirror({
